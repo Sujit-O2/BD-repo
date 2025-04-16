@@ -5,7 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Happy Birthday</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
     html, body {
       width: 100%;
       height: 100%;
@@ -14,16 +18,14 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
+    /* Updated video CSS to fit the viewport on every device */
     #background-video {
       position: fixed;
-      top: 50%;
-      left: 50%;
-      min-width: 100%;
-      min-height: 100%;
-      width: auto;
-      height: auto;
-      transform: translate(-50%, -50%);
-      background-size: cover;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
       opacity: 0.4;
       z-index: 0;
     }
@@ -153,7 +155,7 @@
         // Remove comment after 12 seconds
         setTimeout(() => comment.remove(), 12000);
       }
-      // Slower comment generation to prevent filling the screen: every 3000ms
+      // Slower comment generation: every 3000ms
       setInterval(spawnComment, 3000);
 
       // Floating photos animation
