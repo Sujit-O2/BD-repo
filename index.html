@@ -17,11 +17,6 @@
             transform: translate(-50%, -50%); background-size: cover; opacity: .4; z-index: 0;
         }
 
-        #effectCanvas {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1;
-            background: linear-gradient(to bottom right, rgba(0,0,0,0.1), rgba(0,0,0,0.5));
-        }
-
         .floating-photos {
             position: relative; width: 100%; height: 100%; z-index: 2; opacity: .8;
         }
@@ -36,7 +31,7 @@
         .comment {
             position: absolute; white-space: nowrap; font-size: 1.2rem;
             text-shadow: 1px 1px 3px #000;
-            animation: floatComment 90s linear forwards;
+            animation: floatComment 12s linear forwards;
             pointer-events: none;
             opacity: 1;
         }
@@ -46,6 +41,19 @@
             100% { left: -100%; opacity: 0; }
         }
 
+        .love-effect, .leaf-effect {
+            position: fixed;
+            pointer-events: none;
+            animation: floatIcon 12s linear forwards;
+            z-index: 1;
+            opacity: 0.8;
+        }
+        @keyframes floatIcon {
+            0% { transform: translateY(100vh) scale(1); opacity: 0.8; }
+            70% { transform: translateY(-20vh) scale(1.2); opacity: 0.5; }
+            100% { transform: translateY(-40vh) scale(0.8); opacity: 0; }
+        }
+
         #background-audio {
             position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%); z-index: 5;
         }
@@ -53,7 +61,6 @@
 </head>
 <body>
     <video id="background-video" autoplay muted loop playsinline src="twinkel1.mp4"></video>
-    <canvas id="effectCanvas"></canvas>
     <div class="floating-photos">
         <img src="img1.jpg" alt="Photo 1" class="photo">
         <img src="img2.jpg" alt="Photo 2" class="photo">
@@ -70,44 +77,12 @@
         document.addEventListener('click', () => document.getElementById('background-audio').play(), { once: true });
         document.getElementById('background-audio').play();
 
-        const canvas = document.getElementById('effectCanvas');
-        const ctx = canvas.getContext('2d');
-        let W = canvas.width = window.innerWidth;
-        let H = canvas.height = window.innerHeight;
-        window.addEventListener('resize', () => { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; });
-
-        class Confetti {
-            constructor() {
-                this.x = Math.random() * W;
-                this.y = Math.random() * -H;
-                this.size = Math.random() * 8 + 4;
-                this.speed = Math.random() * 2 + 1.5;
-                this.angle = Math.random() * 360;
-                this.spin = Math.random() * 0.05 - 0.025;
-                this.color = `hsl(${Math.random() * 360}, 100%, 60%)`;
-            }
-            update() {
-                this.y += this.speed;
-                this.angle += this.spin;
-                if (this.y > H) { this.y = -this.size; this.x = Math.random() * W; }
-            }
-            draw() {
-                ctx.save();
-                ctx.translate(this.x, this.y);
-                ctx.rotate(this.angle);
-                ctx.fillStyle = this.color;
-                ctx.fillRect(-this.size/2, -this.size/2, this.size, this.size);
-                ctx.restore();
-            }
-        }
-
-        const confettiCount = 80;
-        const confettis = Array.from({ length: confettiCount }, () => new Confetti());
-        (function animateConfetti() {
-            ctx.clearRect(0, 0, W, H);
-            confettis.forEach(c => { c.update(); c.draw(); });
-            requestAnimationFrame(animateConfetti);
-        })();
+        let W = window.innerWidth;
+        let H = window.innerHeight;
+        window.addEventListener('resize', () => {
+            W = window.innerWidth;
+            H = window.innerHeight;
+        });
 
         const comments = [
             "Happy Birthday! Twinkle", "Wishing you all the joy in the world!",
@@ -132,9 +107,9 @@
             comment.style.top = Math.random() * (H - 40) + 'px';
             comment.style.color = colorSet[Math.floor(Math.random() * colorSet.length)];
             commentsContainer.appendChild(comment);
-            setTimeout(() => comment.remove(), 90000);
+            setTimeout(() => comment.remove(), 12000);
         }
-        setInterval(spawnComment, 4000);
+        setInterval(spawnComment, 1300);
 
         const photos = document.querySelectorAll('.photo');
         photos.forEach(photo => {
@@ -143,7 +118,7 @@
                 const maxY = H - 150;
                 const randomX = Math.random() * maxX;
                 const randomY = Math.random() * maxY;
-                const duration = 20 + Math.random() * 10;
+                const duration = 5 + Math.random() * 5;
                 const randomAngle = (Math.random() - 0.5) * 30;
                 photo.style.transition = `transform ${duration}s ease-in-out`;
                 photo.style.transform = `translate(${randomX}px, ${randomY}px) rotate(${randomAngle}deg)`;
@@ -151,6 +126,21 @@
             }
             setTimeout(movePhoto, Math.random() * 3000);
         });
+
+        // Love and Leaf effects
+        const icons = ['❤️', '🍁'];
+        function spawnFloatingIcon() {
+            const icon = document.createElement('div');
+            icon.className = Math.random() < 0.5 ? 'love-effect' : 'leaf-effect';
+            icon.textContent = icon.className === 'love-effect' ? '❤️' : '🍁';
+            icon.style.left = Math.random() * W + 'px';
+            icon.style.top = '100vh';
+            icon.style.fontSize = (24 + Math.random() * 16) + 'px';
+            icon.style.animationDuration = (10 + Math.random() * 3) + 's';
+            document.body.appendChild(icon);
+            setTimeout(() => icon.remove(), 13000);
+        }
+        setInterval(spawnFloatingIcon, 1000);
     });
     </script>
 </body>
