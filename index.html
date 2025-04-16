@@ -1,147 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html, body {
-            width: 100%; height: 100%; overflow: hidden;
-            background: linear-gradient(135deg, #111, #222);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: linear-gradient(135deg, #111, #222);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-        #background-video {
-            position: fixed; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto;
-            transform: translate(-50%, -50%); background-size: cover; opacity: .4; z-index: 0;
-        }
+    #background-video {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      transform: translate(-50%, -50%);
+      background-size: cover;
+      opacity: 0.4;
+      z-index: 0;
+    }
 
-        .floating-photos {
-            position: relative; width: 100%; height: 100%; z-index: 2; opacity: .8;
-        }
-        .photo {
-            position: absolute; width: 100px; border: 3px solid #fff; border-radius: 10px; object-fit: cover;
-            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
-        }
+    .floating-photos {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      opacity: 0.8;
+    }
+    .photo {
+      position: absolute;
+      width: 100px;
+      border: 3px solid #fff;
+      border-radius: 10px;
+      object-fit: cover;
+      box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
+    }
 
-        #comments-container {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 3;
-        }
-        .comment {
-            position: absolute; white-space: nowrap; font-size: 1.2rem;
-            text-shadow: 1px 1px 3px #000;
-            animation: floatComment 12s linear forwards;
-            pointer-events: none;
-            opacity: 1;
-        }
-        @keyframes floatComment {
-            0% { left: 100%; opacity: 1; }
-            80% { left: 10%; opacity: 1; }
-            100% { left: -100%; opacity: 0; }
-        }
+    #comments-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 3;
+      overflow: hidden;
+    }
+    .comment {
+      position: absolute;
+      white-space: nowrap;
+      font-size: 1.2rem;
+      text-shadow: 1px 1px 3px #000;
+      animation: floatComment 12s linear forwards;
+      pointer-events: none;
+      opacity: 1;
+    }
+    @keyframes floatComment {
+      0% { left: 100%; opacity: 1; }
+      80% { left: 10%; opacity: 1; }
+      100% { left: -100%; opacity: 0; }
+    }
 
-        .love-effect, .leaf-effect {
-            position: fixed;
-            pointer-events: none;
-            animation: floatIcon 12s linear forwards;
-            z-index: 1;
-            opacity: 0.8;
-        }
-        @keyframes floatIcon {
-            0% { transform: translateY(100vh) scale(1); opacity: 0.8; }
-            70% { transform: translateY(-20vh) scale(1.2); opacity: 0.5; }
-            100% { transform: translateY(-40vh) scale(0.8); opacity: 0; }
-        }
+    .love-effect,
+    .leaf-effect {
+      position: fixed;
+      pointer-events: none;
+      animation: floatIcon 12s linear forwards;
+      z-index: 1;
+      opacity: 0.8;
+    }
+    @keyframes floatIcon {
+      0%   { transform: translateY(100vh) scale(1); opacity: 0.8; }
+      70%  { transform: translateY(-20vh) scale(1.2); opacity: 0.5; }
+      100% { transform: translateY(-40vh) scale(0.8); opacity: 0; }
+    }
 
-        #background-audio {
-            position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%); z-index: 5;
-        }
-    </style>
+    #background-audio {
+      position: fixed;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 5;
+    }
+  </style>
 </head>
 <body>
-    <video id="background-video" autoplay muted loop playsinline src="twinkel1.mp4"></video>
-    <div class="floating-photos">
-        <img src="img1.jpg" alt="Photo 1" class="photo">
-        <img src="img2.jpg" alt="Photo 2" class="photo">
-        <img src="img3.jpg" alt="Photo 3" class="photo">
-        <img src="img4.jpg" alt="Photo 4" class="photo">
-        <img src="img5.jpg" alt="Photo 5" class="photo">
-        <img src="img6.jpg" alt="Photo 6" class="photo">
-    </div>
-    <div id="comments-container"></div>
-    <audio id="background-audio" src="bgaudio.mp3" loop></audio>
+  <video id="background-video" autoplay muted loop playsinline src="twinkel1.mp4"></video>
 
-    <script>
+  <div class="floating-photos">
+    <img src="img1.jpg" alt="Photo 1" class="photo">
+    <img src="img2.jpg" alt="Photo 2" class="photo">
+    <img src="img3.jpg" alt="Photo 3" class="photo">
+    <img src="img4.jpg" alt="Photo 4" class="photo">
+    <img src="img5.jpg" alt="Photo 5" class="photo">
+    <img src="img6.jpg" alt="Photo 6" class="photo">
+  </div>
+
+  <div id="comments-container"></div>
+  <audio id="background-audio" src="bgaudio.mp3" loop></audio>
+
+  <script>
     document.addEventListener('DOMContentLoaded', () => {
-        document.addEventListener('click', () => document.getElementById('background-audio').play(), { once: true });
+      // Ensure audio starts on user interaction for mobile browsers
+      document.addEventListener('click', () => {
         document.getElementById('background-audio').play();
+      }, { once: true });
+      document.getElementById('background-audio').play();
 
-        let W = window.innerWidth;
-        let H = window.innerHeight;
-        window.addEventListener('resize', () => {
-            W = window.innerWidth;
-            H = window.innerHeight;
-        });
+      // Use the comments container for comment placement
+      const commentsContainer = document.getElementById('comments-container');
 
-        const comments = [
-            "Happy Birthday! Twinkle", "Wishing you all the joy in the world!",
-            "May your day be as special as you are!", "Every moment with you is a treasure.",
-            "Hope all your dreams come true!", "You deserve all the love and happiness in the world!",
-            "To many more celebrations together!", "You're simply the best!",
-            "Sending you lots of love today!", "Let's make this day unforgettable!",
-            "Time to shine and party!", "Blow out the candles!",
-            "Your presence in my life is the greatest gift I've ever received.",
-            "Cheers to your special day!", "Keep reaching for the stars!",
-            "Another year, another adventure!", "Embrace all the joy today brings!",
-            "Today is your time to sparkle!", "Live it up, it's your birthday!"
-        ];
-        const commentsContainer = document.getElementById('comments-container');
-        const colorSet = ["#ff99cc", "#66ccff", "#ccff66", "#ffcc66", "#ff6666", "#66ffcc"];
+      const comments = [
+        "Happy Birthday! Twinkle", 
+        "Wishing you all the joy in the world!",
+        "May your day be as special as you are!", 
+        "Every moment with you is a treasure.",
+        "Hope all your dreams come true!", 
+        "You deserve all the love and happiness in the world!",
+        "To many more celebrations together!", 
+        "You're simply the best!",
+        "Sending you lots of love today!", 
+        "Let's make this day unforgettable!",
+        "Time to shine and party!", 
+        "Blow out the candles!",
+        "Your presence in my life is the greatest gift I've ever received.",
+        "Cheers to your special day!", 
+        "Keep reaching for the stars!",
+        "Another year, another adventure!", 
+        "Embrace all the joy today brings!",
+        "Today is your time to sparkle!", 
+        "Live it up, it's your birthday!"
+      ];
+      const colorSet = ["#ff99cc", "#66ccff", "#ccff66", "#ffcc66", "#ff6666", "#66ffcc"];
 
-        function spawnComment() {
-            const text = comments[Math.floor(Math.random() * comments.length)];
-            const comment = document.createElement('div');
-            comment.className = 'comment';
-            comment.textContent = text;
-            comment.style.top = Math.random() * (H - 40) + 'px';
-            comment.style.color = colorSet[Math.floor(Math.random() * colorSet.length)];
-            commentsContainer.appendChild(comment);
-            setTimeout(() => comment.remove(), 12000);
+      function spawnComment() {
+        const text = comments[Math.floor(Math.random() * comments.length)];
+        const comment = document.createElement('div');
+        comment.className = 'comment';
+        comment.textContent = text;
+        const containerHeight = commentsContainer.clientHeight;
+        comment.style.top = (Math.random() * (containerHeight - 40)) + 'px';
+        comment.style.color = colorSet[Math.floor(Math.random() * colorSet.length)];
+        commentsContainer.appendChild(comment);
+        // Remove comment after 12 seconds
+        setTimeout(() => comment.remove(), 12000);
+      }
+      // Slower comment generation to prevent filling the screen: every 3000ms
+      setInterval(spawnComment, 3000);
+
+      // Floating photos animation
+      let W = window.innerWidth;
+      let H = window.innerHeight;
+      window.addEventListener('resize', () => {
+        W = window.innerWidth;
+        H = window.innerHeight;
+      });
+
+      const photos = document.querySelectorAll('.photo');
+      photos.forEach(photo => {
+        function movePhoto() {
+          const maxX = W - 150;
+          const maxY = H - 150;
+          const randomX = Math.random() * maxX;
+          const randomY = Math.random() * maxY;
+          const duration = 5 + Math.random() * 5;
+          const randomAngle = (Math.random() - 0.5) * 30;
+          photo.style.transition = `transform ${duration}s ease-in-out`;
+          photo.style.transform = `translate(${randomX}px, ${randomY}px) rotate(${randomAngle}deg)`;
+          setTimeout(movePhoto, duration * 1000);
         }
-        setInterval(spawnComment, 1300);
+        setTimeout(movePhoto, Math.random() * 3000);
+      });
 
-        const photos = document.querySelectorAll('.photo');
-        photos.forEach(photo => {
-            function movePhoto() {
-                const maxX = W - 150;
-                const maxY = H - 150;
-                const randomX = Math.random() * maxX;
-                const randomY = Math.random() * maxY;
-                const duration = 5 + Math.random() * 5;
-                const randomAngle = (Math.random() - 0.5) * 30;
-                photo.style.transition = `transform ${duration}s ease-in-out`;
-                photo.style.transform = `translate(${randomX}px, ${randomY}px) rotate(${randomAngle}deg)`;
-                setTimeout(movePhoto, duration * 1000);
-            }
-            setTimeout(movePhoto, Math.random() * 3000);
-        });
-
-        // Love and Leaf effects
-        const icons = ['❤️', '🍁'];
-        function spawnFloatingIcon() {
-            const icon = document.createElement('div');
-            icon.className = Math.random() < 0.5 ? 'love-effect' : 'leaf-effect';
-            icon.textContent = icon.className === 'love-effect' ? '❤️' : '🍁';
-            icon.style.left = Math.random() * W + 'px';
-            icon.style.top = '100vh';
-            icon.style.fontSize = (24 + Math.random() * 16) + 'px';
-            icon.style.animationDuration = (10 + Math.random() * 3) + 's';
-            document.body.appendChild(icon);
-            setTimeout(() => icon.remove(), 13000);
-        }
-        setInterval(spawnFloatingIcon, 1000);
+      // Love and Leaf floating effects
+      function spawnFloatingIcon() {
+        const icon = document.createElement('div');
+        icon.className = Math.random() < 0.5 ? 'love-effect' : 'leaf-effect';
+        icon.textContent = icon.className === 'love-effect' ? '❤️' : '🍁';
+        icon.style.left = Math.random() * W + 'px';
+        icon.style.top = '100vh';
+        icon.style.fontSize = (24 + Math.random() * 16) + 'px';
+        icon.style.animationDuration = (10 + Math.random() * 3) + 's';
+        document.body.appendChild(icon);
+        setTimeout(() => icon.remove(), 13000);
+      }
+      setInterval(spawnFloatingIcon, 1000);
     });
-    </script>
+  </script>
 </body>
 </html>
